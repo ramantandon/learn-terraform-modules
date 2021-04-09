@@ -1,7 +1,7 @@
 # Terraform configuration
 
 provider "aws" {
-  region = "us-west-2"
+  region = "us-east-1"
 }
 
 module "vpc" {
@@ -25,7 +25,7 @@ module "ec2_instances" {
   version = "2.12.0"
 
   name           = "my-ec2-cluster"
-  instance_count = 2
+  instance_count = 1
 
   ami                    = "ami-0c5204531f799e0c6"
   instance_type          = "t2.micro"
@@ -39,9 +39,10 @@ module "ec2_instances" {
 }
 
 module "website_s3_bucket" {
-  source = "./modules/aws-s3-static-website-bucket"
+  source  = "app.terraform.io/rucst/s3-static-website-bucket/aws"
+  version = "0.1.0"
 
-  bucket_name = "raman-test-april-08-2021"
+  bucket_name = "raman-test-04-08-2021"
 
   tags = {
     Terraform   = "true"
